@@ -1,6 +1,6 @@
 package com.varun.mobile.insight.repository;
 
-import com.varun.mobile.insight.models.BillingCycle;
+import com.varun.mobile.insight.model.BillingCycle;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

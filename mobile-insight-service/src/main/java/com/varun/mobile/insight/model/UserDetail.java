@@ -1,4 +1,4 @@
-package com.varun.mobile.insight.models;
+package com.varun.mobile.insight.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,6 +25,10 @@ public class UserDetail {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public UserDetail() {
+        // empty constructor
     }
 
     public String get_id() {

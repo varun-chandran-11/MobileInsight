@@ -1,4 +1,4 @@
-package com.varun.mobile.insight.models;
+package com.varun.mobile.insight.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
