@@ -20,8 +20,8 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UserCreationException.class)
-    public ResponseEntity<Map<String, String>> handleUserUpdate(UserUpdateException exception) {
+    @ExceptionHandler(UserUpdationException.class)
+    public ResponseEntity<Map<String, String>> handleUserUpdate(UserUpdationException exception) {
         Map<String, String> map =  new HashMap<>();
         map.put(MESSAGE, exception.getMessage());
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
