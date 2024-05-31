@@ -22,8 +22,12 @@ public class UserController {
 
     Logger logger = Logger.getLogger(UserController.class.getName());
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    //using constructor injection for testability and maintainability
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/create")
     @JsonView(Views.Public.class)

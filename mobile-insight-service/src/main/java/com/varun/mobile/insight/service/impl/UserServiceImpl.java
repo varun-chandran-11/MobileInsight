@@ -18,8 +18,12 @@ import static com.varun.mobile.insight.common.Constants.*;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDetailRepository userDetailRepository;
+    private final UserDetailRepository userDetailRepository;
+
+    //using constructor injection for testability and maintainability
+    public UserServiceImpl(UserDetailRepository userDetailRepository) {
+        this.userDetailRepository = userDetailRepository;
+    }
 
     Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
 
