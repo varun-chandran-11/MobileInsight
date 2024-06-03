@@ -2,6 +2,8 @@ package com.varun.mobile.insight.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document("daily_usage")
 public class DailyUsage {
 
@@ -15,12 +17,12 @@ public class DailyUsage {
     private String userId;
 
     //ISODate("2023-10-25T00:00:00.000-0400")
-    private String usageDate;
+    private Date usageDate;
 
     //Usage of that day from 10-25 00:00:00 EST to 10-25 23:59:59 EST
-    private int usedInMb;
+    private Double usedInMb;
 
-    public DailyUsage(String mdn, String userId, String usageDate, int usedInMb) {
+    public DailyUsage(String mdn, String userId, Date usageDate, Double usedInMb) {
         this.mdn = mdn;
         this.userId = userId;
         this.usageDate = usageDate;
@@ -51,19 +53,20 @@ public class DailyUsage {
         this.userId = userId;
     }
 
-    public String getUsageDate() {
+    public Date getUsageDate() {
         return usageDate;
     }
 
-    public void setUsageDate(String usageDate) {
+    public void setUsageDate(Date usageDate) {
         this.usageDate = usageDate;
     }
 
-    public int getUsedInMb() {
+    public Double getUsedInMb() {
         return usedInMb;
     }
 
-    public void setUsedInMb(int usedInMb) {
+    public void setUsedInMb(Double usedInMb) {
         this.usedInMb = usedInMb;
     }
+
 }

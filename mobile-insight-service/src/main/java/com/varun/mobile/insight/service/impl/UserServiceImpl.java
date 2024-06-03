@@ -6,10 +6,10 @@ import com.varun.mobile.insight.model.UserDetail;
 import com.varun.mobile.insight.repository.UserDetailRepository;
 import com.varun.mobile.insight.service.UserService;
 import com.varun.mobile.insight.util.MIEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +19,12 @@ import static com.varun.mobile.insight.common.Constants.*;
 public class UserServiceImpl implements UserService {
 
     private final UserDetailRepository userDetailRepository;
+    Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
 
     //using constructor injection for testability and maintainability
     public UserServiceImpl(UserDetailRepository userDetailRepository) {
         this.userDetailRepository = userDetailRepository;
     }
-
-    Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Override
     public UserDetail createUser(UserDetail userDetail) throws UserCreationException {
@@ -48,18 +47,21 @@ public class UserServiceImpl implements UserService {
         logger.log(Level.INFO, "In service layer updateUser method.");
         try {
             logger.log(Level.INFO, "Finding user by ID.");
-            UserDetail entry = userDetailRepository.findBy_id(userDetail.get_id());
-            if(null == entry) {
+            Optional<UserDetail> entryInDB = userDetailRepository.findBy_id(userDetail.get_id());
+            if (entryInDB.isEmpty()) {
                 throw new UserUpdationException(MESSAGE_USER_NOT_FOUND);
             }
             logger.log(Level.INFO, "Updating user details. Calling repository save method.");
+            UserDetail entry = entryInDB.get();
             entry.setFirstName(userDetail.getFirstName());
             entry.setLastName(userDetail.getLastName());
             entry.setEmail(userDetail.getEmail());
             return userDetailRepository.save(entry);
-        } catch(DuplicateKeyException e) {
+        } catch (DuplicateKeyException e) {
+            e.printStackTrace();
             throw new UserUpdationException(MESSAGE_USER_UPDATE_FAIL_KEY, e);
         } catch (Exception e) {
+            e.printStackTrace();
             String msgString = MESSAGE_USER_UPDATE_FAIL + " " + userDetail.get_id();
             throw new UserUpdationException(msgString, e);
         }

@@ -6,7 +6,6 @@ import com.varun.mobile.insight.exception.UserCreationException;
 import com.varun.mobile.insight.exception.UserUpdationException;
 import com.varun.mobile.insight.model.UserDetail;
 import com.varun.mobile.insight.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +19,8 @@ import java.util.logging.Logger;
 @RequestMapping("/user")
 public class UserController {
 
-    Logger logger = Logger.getLogger(UserController.class.getName());
-
     private final UserService userService;
+    Logger logger = Logger.getLogger(UserController.class.getName());
 
     //using constructor injection for testability and maintainability
     public UserController(UserService userService) {

@@ -4,11 +4,12 @@ import com.varun.mobile.insight.model.DailyUsage;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DailyUsageRepository extends MongoRepository<DailyUsage, String> {
 
-    @Query(fields="{'usageDate' : 1, 'usedInMb' : 1}")
-    List<DailyUsage> findByUserIdAndMdn(String userId, String mdn);
+    @Query("{ 'userId' : ?0, 'mdn' : ?1, 'usageDate' : { $gte: ?2, $lte: ?3 } }")
+    List<DailyUsage> findUsageByUserIdMdnAndDateRange(String userId, String mdn, Date startDate, Date endDate);
 
 }

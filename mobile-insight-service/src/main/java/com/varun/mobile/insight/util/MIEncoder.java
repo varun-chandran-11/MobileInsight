@@ -11,9 +11,8 @@ import java.util.logging.Logger;
  */
 public class MIEncoder {
 
-    Logger logger = Logger.getLogger(MIEncoder.class.getName());
-
     public static MIEncoder encryptor;
+    Logger logger = Logger.getLogger(MIEncoder.class.getName());
 
     private MIEncoder() {
         //made constructor private to hide initialization from another class.
