@@ -3,7 +3,7 @@ package com.varun.mobile.insight.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
 import com.varun.mobile.insight.exception.UserCreationException;
-import com.varun.mobile.insight.exception.UserUpdationException;
+import com.varun.mobile.insight.exception.UserUpdateException;
 import com.varun.mobile.insight.model.UserDetail;
 import com.varun.mobile.insight.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +36,9 @@ public class UserController {
 
     @PostMapping("/update")
     @JsonView(Views.Public.class)
-    public ResponseEntity<UserDetail> updateUser(@RequestBody UserDetail userDetail) throws UserUpdationException {
+    public ResponseEntity<UserDetail> updateUser(@RequestBody UserDetail userDetail) throws UserUpdateException {
         logger.log(Level.INFO, "Inside controller update method.");
-        return ResponseEntity.ok(userService.updateUser(userDetail));
+        return ResponseEntity.ok(userService.updateUserDetails(userDetail));
     }
 
 }

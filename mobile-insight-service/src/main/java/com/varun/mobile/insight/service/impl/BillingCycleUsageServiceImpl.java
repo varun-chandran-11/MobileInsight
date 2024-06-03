@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.varun.mobile.insight.common.Constants.*;
+import static com.varun.mobile.insight.common.StringConstants.*;
 
 @Service
 public class BillingCycleUsageServiceImpl implements BillingCycleUsageService {
@@ -35,7 +35,7 @@ public class BillingCycleUsageServiceImpl implements BillingCycleUsageService {
     public List<BillingCycle> getBillingCycleHistory(String userId, String mdn) throws BillingHistoryException {
         logger.log(Level.INFO, "In service layer getBillingCycleHistory method.");
         try {
-            List<BillingCycle> resultList = billingCycleRepository.findAll(userId, mdn);
+            return billingCycleRepository.findAll(userId, mdn);
         } catch (DataAccessException e) {
             // Handle Spring Data access exceptions
             e.printStackTrace();
@@ -49,32 +49,76 @@ public class BillingCycleUsageServiceImpl implements BillingCycleUsageService {
             e.printStackTrace();
             throw new BillingHistoryException(MESSAGE_UNEXPECTED_ERROR, e);
         }
-
-        return List.of();
     }
 
     @Override
     public List<DailyUsage> getCurrentCycleUsage(String userId, String mdn) throws CycleUsageException {
-
+        logger.log(Level.INFO, "In service layer getCurrentCycleUsage method.");
         //get the billing cycle as per current date
         Date today = new Date();
-        BillingCycle billingCycle;
-        try {
-            Optional<BillingCycle> currentCycle = billingCycleRepository.findItemByUserIdAndMdnAndDate(userId, mdn, today);
-            if(currentCycle.isEmpty()) {
-                throw new CycleUsageException("No current cycle found for user " + userId + " and mdn " + mdn);
-            }
+        BillingCycle billingCycle = getBillingCycle(userId, mdn, today);
 
-            billingCycle = currentCycle.get();
-        } catch(Exception e) {
+        //get the usage details with usedId and mdn between the billing cycle dates
+        return getDailyUsage(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate());
+    }
+
+    /**
+     *
+     * @param userId - primary key of user detail table
+     * @param mdn - phone number
+     * @param date - date to filter
+     * @return - Billing cycle as per the given arguments
+     * @throws CycleUsageException
+     */
+    private BillingCycle getBillingCycle(String userId, String mdn, Date date) throws CycleUsageException {
+        logger.log(Level.INFO, "In service layer getBillingCycle method.");
+        try {
+            logger.log(Level.INFO, "Calling repo to get current cycle.");
+            Optional<BillingCycle> currentCycle = billingCycleRepository.findItemByUserIdAndMdnAndDate(userId, mdn, date);
+            if(currentCycle.isEmpty()) {
+                throw new CycleUsageException("No current cycle found for user %s" + userId + " and mdn %s." + mdn);
+            }
+            logger.log(Level.INFO, "Successfully retrieved current cycle.");
+            return currentCycle.get();
+        } catch (DataAccessException e) {
+            // Handle Spring Data access exceptions
+            e.printStackTrace();
+            throw new CycleUsageException(MESSAGE_BILLING_DATA_FAIL, e);
+        } catch (MongoException e) {
+            // Handle MongoDB-specific exceptions
+            e.printStackTrace();
+            throw new CycleUsageException(MESSAGE_BILLING_MONGO_FAIL, e);
+        } catch (Exception e) {
+            // Handle any other exceptions
             e.printStackTrace();
             throw new CycleUsageException(MESSAGE_UNEXPECTED_ERROR, e);
         }
+    }
 
-        //get the usage details with usedId and mdn between the billing cycle dates
+    /**
+     * This method calls the repo and get the details.
+     * @param userId - primary key of user table
+     * @param mdn - phone number
+     * @param startDate - start date of cycle
+     * @param endDate - end date of cycle
+     * @return - daily usage list
+     * @throws CycleUsageException
+     */
+    private List<DailyUsage> getDailyUsage(String userId, String mdn, Date startDate, Date endDate) throws CycleUsageException {
+        logger.log(Level.INFO, "Inside getDailyUsage method of service layer.");
         try {
-            return dailyUsageRepository.findUsageByUserIdMdnAndDateRange(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate());
+            logger.log(Level.INFO, "Calling repo to get usage details.");
+            return dailyUsageRepository.findUsageByUserIdMdnAndDateRange(userId, mdn, startDate, endDate);
+        } catch (DataAccessException e) {
+            // Handle Spring Data access exceptions
+            e.printStackTrace();
+            throw new CycleUsageException(MESSAGE_BILLING_DATA_FAIL, e);
+        } catch (MongoException e) {
+            // Handle MongoDB-specific exceptions
+            e.printStackTrace();
+            throw new CycleUsageException(MESSAGE_BILLING_MONGO_FAIL, e);
         } catch (Exception e) {
+            // Handle any other exceptions
             e.printStackTrace();
             throw new CycleUsageException(MESSAGE_UNEXPECTED_ERROR, e);
         }

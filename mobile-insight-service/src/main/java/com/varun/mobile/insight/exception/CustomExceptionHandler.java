@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.varun.mobile.insight.common.Constants.MESSAGE;
+import static com.varun.mobile.insight.common.StringConstants.MESSAGE;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {
@@ -20,8 +20,8 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UserUpdationException.class)
-    public ResponseEntity<Map<String, String>> handleUserUpdate(UserUpdationException exception) {
+    @ExceptionHandler(UserUpdateException.class)
+    public ResponseEntity<Map<String, String>> handleUserUpdate(UserUpdateException exception) {
         Map<String, String> map = new HashMap<>();
         map.put(MESSAGE, exception.getMessage());
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);

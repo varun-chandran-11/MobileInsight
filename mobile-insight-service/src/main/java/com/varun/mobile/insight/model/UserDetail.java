@@ -2,6 +2,7 @@ package com.varun.mobile.insight.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
+import com.varun.mobile.insight.util.MIEncoder;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -33,7 +34,7 @@ public class UserDetail {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.password = MIEncoder.getInstance().encode(password);
     }
 
     public UserDetail() {
@@ -49,34 +50,34 @@ public class UserDetail {
     }
 
     public String getFirstName() {
-        return firstName;
+        return MIEncoder.getInstance().decode(firstName);
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = MIEncoder.getInstance().encode(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return MIEncoder.getInstance().decode(lastName);
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = MIEncoder.getInstance().encode(lastName);
     }
 
     public String getEmail() {
-        return email;
+        return MIEncoder.getInstance().decode(email);
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = MIEncoder.getInstance().encode(email);
     }
 
     public String getPassword() {
-        return password;
+        return MIEncoder.getInstance().decode(password);
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = MIEncoder.getInstance().encode(password);
     }
 }

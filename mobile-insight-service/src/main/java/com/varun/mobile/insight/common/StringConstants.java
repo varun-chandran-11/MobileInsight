@@ -1,6 +1,6 @@
 package com.varun.mobile.insight.common;
 
-public class Constants {
+public class StringConstants {
 
     public static final String MESSAGE = "message";
     public static final String MESSAGE_USER_CREATE_FAIL = "Failed to create new user.";

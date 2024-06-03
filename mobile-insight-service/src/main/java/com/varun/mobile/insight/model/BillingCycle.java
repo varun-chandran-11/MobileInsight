@@ -2,6 +2,7 @@ package com.varun.mobile.insight.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
+import com.varun.mobile.insight.util.MIEncoder;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -30,12 +31,8 @@ public class BillingCycle {
     @JsonView(Views.Internal.class)
     private String userId;
 
-    @JsonView(Views.Internal.class)
-    @DocumentReference(lookup = "{'_id' : ?#{#self.userId} }")
-    private UserDetail userDetail;
-
     public BillingCycle(String mdn, Date startDate, Date endDate, String userId) {
-        this.mdn = mdn;
+        this.mdn = MIEncoder.getInstance().encode(mdn);
         this.startDate = startDate;
         this.endDate = endDate;
         this.userId = userId;
@@ -50,11 +47,11 @@ public class BillingCycle {
     }
 
     public String getMdn() {
-        return mdn;
+        return MIEncoder.getInstance().decode(mdn);
     }
 
     public void setMdn(String mdn) {
-        this.mdn = mdn;
+        this.mdn = MIEncoder.getInstance().encode(mdn);;
     }
 
     public Date getStartDate() {

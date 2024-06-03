@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 
 /**
  * This class can be replaced by a class which handles encryption and decryption.
- * For now, I am using basic encoding to store password.
+ * For now, I am using basic encoding to store any PII data.
  */
 public class MIEncoder {
 
-    public static MIEncoder encryptor;
+    public static MIEncoder encoder;
     Logger logger = Logger.getLogger(MIEncoder.class.getName());
 
     private MIEncoder() {
@@ -19,10 +19,10 @@ public class MIEncoder {
     }
 
     public static MIEncoder getInstance() {
-        if (encryptor == null) {
-            encryptor = new MIEncoder();
+        if (encoder == null) {
+            encoder = new MIEncoder();
         }
-        return encryptor;
+        return encoder;
     }
 
     public String encode(String input) {
