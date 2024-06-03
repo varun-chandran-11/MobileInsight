@@ -9,5 +9,4 @@ public class MobileInsightServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(MobileInsightServiceApplication.class, args);
     }
-
 }

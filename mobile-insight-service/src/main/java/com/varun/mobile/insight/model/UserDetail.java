@@ -3,8 +3,14 @@ package com.varun.mobile.insight.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
 import com.varun.mobile.insight.util.MIEncoder;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 
 @Document("user_details")
 public class UserDetail {
@@ -29,6 +35,19 @@ public class UserDetail {
     //Used for the login to our system
     @JsonView(Views.Internal.class)
     private String password;
+
+    @CreatedDate
+    private Date createdDate;
+
+    @LastModifiedDate
+    private Date lastModifiedDate;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String lastModifiedBy;
+
 
     public UserDetail(String firstName, String lastName, String email, String password) {
         this.firstName = MIEncoder.getInstance().encode(firstName);
@@ -79,5 +98,37 @@ public class UserDetail {
 
     public void setPassword(String password) {
         this.password = MIEncoder.getInstance().encode(password);
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 }
