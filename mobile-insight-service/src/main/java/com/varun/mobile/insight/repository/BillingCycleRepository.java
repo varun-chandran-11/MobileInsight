@@ -18,5 +18,4 @@ public interface BillingCycleRepository extends MongoRepository<BillingCycle, St
     @Query(value = "{userId:'?0', mdn:'?1'}", fields = "{'_id' : 1, 'startDate' : 1, 'endDate' : 1}")
     List<BillingCycle> findAll(String userId, String mdn);
 
-
 }

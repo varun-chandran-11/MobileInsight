@@ -60,7 +60,8 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
         BillingCycle billingCycle = getBillingCycle(userId, mdn, today);
 
         //get the usage details with usedId and mdn between the billing cycle dates
-        return getDailyUsage(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate());
+        List<DailyUsage> dailyUsageList = getDailyUsage(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate());
+        return dailyUsageList;
     }
 
     /**
@@ -77,7 +78,7 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
             logger.log(Level.INFO, "Calling repo to get current cycle.");
             Optional<BillingCycle> currentCycle = billingCycleRepository.findItemByUserIdAndMdnAndDate(userId, MIEncoder.getInstance().encode(mdn), date);
             if(currentCycle.isEmpty()) {
-                throw new CycleUsageException("No current cycle found for user %s" + userId + " and mdn %s." + mdn);
+                throw new CycleUsageException("No current cycle found for user " + userId + " and mdn " + mdn);
             }
             logger.log(Level.INFO, "Successfully retrieved current cycle.");
             return currentCycle.get();
@@ -109,7 +110,7 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
         logger.log(Level.INFO, "Inside getDailyUsage method of service layer.");
         try {
             logger.log(Level.INFO, "Calling repo to get usage details.");
-            return dailyUsageRepository.findUsageByUserIdMdnAndDateRange(userId, MIEncoder.getInstance().encode(mdn), startDate, endDate);
+            return dailyUsageRepository.findItemByUserIdAndMdnAndUsageDateBetween(userId, MIEncoder.getInstance().encode(mdn), startDate, endDate);
         } catch (DataAccessException e) {
             // Handle Spring Data access exceptions
             e.printStackTrace();

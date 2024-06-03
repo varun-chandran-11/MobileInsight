@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -62,7 +63,15 @@ public class BillCycleUsageControllerTest {
         request.setMdn("4379892179");
 
         DailyUsage usage1 = new DailyUsage();
+        usage1.setUsageDate(new Date());
+        usage1.setUserId("66595f7f832f0e6c0e31d75c");
+        usage1.setMdn("4379892179");
+        usage1.setUsedInMb(500.43);
         DailyUsage usage2 = new DailyUsage();
+        usage2.setUsageDate(new Date());
+        usage2.setUserId("66595f7f832f0e6c0e31d75c");
+        usage2.setMdn("4379892179");
+        usage2.setUsedInMb(550.43);
         List<DailyUsage> dailyUsages = Arrays.asList(usage1, usage2);
 
         when(billCycleUsageService.getCurrentCycleUsage(anyString(), anyString())).thenReturn(dailyUsages);
