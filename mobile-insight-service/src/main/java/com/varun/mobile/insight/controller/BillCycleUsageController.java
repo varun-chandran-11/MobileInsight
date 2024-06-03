@@ -7,7 +7,7 @@ import com.varun.mobile.insight.exception.BillingHistoryException;
 import com.varun.mobile.insight.exception.CycleUsageException;
 import com.varun.mobile.insight.model.BillingCycle;
 import com.varun.mobile.insight.model.DailyUsage;
-import com.varun.mobile.insight.service.BillingCycleUsageService;
+import com.varun.mobile.insight.service.BillCycleUsageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,28 +17,28 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("billing-cycle")
-public class BillingCycleUsageController {
+public class BillCycleUsageController {
 
-    private final BillingCycleUsageService billingCycleUsageService;
-    Logger logger = Logger.getLogger(BillingCycleUsageController.class.getName());
+    private final BillCycleUsageService billCycleUsageService;
+    Logger logger = Logger.getLogger(BillCycleUsageController.class.getName());
 
     //using constructor injection for testability and maintainability
-    public BillingCycleUsageController(BillingCycleUsageService billingCycleUsageService) {
-        this.billingCycleUsageService = billingCycleUsageService;
+    public BillCycleUsageController(BillCycleUsageService billCycleUsageService) {
+        this.billCycleUsageService = billCycleUsageService;
     }
 
     @GetMapping("/history")
     @JsonView(Views.Public.class)
     public ResponseEntity<List<BillingCycle>> getCycleHistory(@RequestBody BillingRequest request) throws BillingHistoryException {
         logger.log(Level.INFO, "Inside billing cycle controller history method.");
-        return ResponseEntity.ok(billingCycleUsageService.getBillingCycleHistory(request.getUserId(), request.getMdn()));
+        return ResponseEntity.ok(billCycleUsageService.getBillingCycleHistory(request.getUserId(), request.getMdn()));
     }
 
     @GetMapping("/daily-usage")
     @JsonView(Views.Public.class)
     public ResponseEntity<List<DailyUsage>> getCurrentCycleDailyUsage(@RequestBody BillingRequest request) throws CycleUsageException {
         logger.log(Level.INFO, "Inside billing cycle controller daily usage method.");
-        return ResponseEntity.ok(billingCycleUsageService.getCurrentCycleUsage(request.getUserId(), request.getMdn()));
+        return ResponseEntity.ok(billCycleUsageService.getCurrentCycleUsage(request.getUserId(), request.getMdn()));
     }
 
 }

@@ -7,7 +7,7 @@ import com.varun.mobile.insight.model.DailyUsage;
 
 import java.util.List;
 
-public interface BillingCycleUsageService {
+public interface BillCycleUsageService {
 
     List<BillingCycle> getBillingCycleHistory(String userId, String mdn) throws BillingHistoryException;
 
