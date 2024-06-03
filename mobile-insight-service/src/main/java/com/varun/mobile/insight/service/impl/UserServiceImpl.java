@@ -1,5 +1,7 @@
 package com.varun.mobile.insight.service.impl;
 
+import com.varun.mobile.insight.dto.UserCreateRequest;
+import com.varun.mobile.insight.dto.UserUpdateRequest;
 import com.varun.mobile.insight.exception.UserCreationException;
 import com.varun.mobile.insight.exception.UserUpdateException;
 import com.varun.mobile.insight.model.UserDetail;
@@ -26,13 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetail createUser(UserDetail userDetail) throws UserCreationException {
+    public UserDetail createUser(UserCreateRequest request) throws UserCreationException {
         logger.log(Level.INFO, "In service layer createUser method.");
-        UserDetail newUserEntry = new UserDetail(userDetail.getFirstName(), userDetail.getLastName(),
-                userDetail.getEmail(), userDetail.getPassword());
+        UserDetail userDetail = new UserDetail(request.getFirstName(), request.getLastName(),
+                request.getEmail(), request.getPassword());
         try {
             logger.log(Level.INFO, "Calling repository insert method.");
-            return userDetailRepository.insert(newUserEntry);
+            return userDetailRepository.insert(userDetail);
         } catch (DuplicateKeyException e) {
             throw new UserCreationException(MESSAGE_USER_CREATE_FAIL_KEY, e);
         } catch (Exception e) {
@@ -41,10 +43,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetail updateUserDetails(UserDetail userDetail) throws UserUpdateException {
+    public UserDetail updateUserDetails(UserUpdateRequest request) throws UserUpdateException {
         logger.log(Level.INFO, "In service layer updateUser method.");
-        UserDetail user = findUserById(userDetail.get_id());
-        return saveUserDetails(userDetail.getFirstName(), userDetail.getLastName(), userDetail.getEmail(), user);
+        UserDetail userDetail = findUserById(request.getUserId());
+        return saveUserDetails(request.getFirstName(), request.getLastName(), request.getEmail(), userDetail);
     }
 
     /**
@@ -76,7 +78,7 @@ public class UserServiceImpl implements UserService {
      * @param firstName - new firstName
      * @param lastName - new lastName
      * @param email - new email
-     * @param user - object to update
+     * @param userDetail - object to update
      * @return
      * @throws UserUpdateException
      */

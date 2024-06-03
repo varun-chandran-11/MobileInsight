@@ -2,6 +2,8 @@ package com.varun.mobile.insight.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
+import com.varun.mobile.insight.dto.UserCreateRequest;
+import com.varun.mobile.insight.dto.UserUpdateRequest;
 import com.varun.mobile.insight.exception.UserCreationException;
 import com.varun.mobile.insight.exception.UserUpdateException;
 import com.varun.mobile.insight.model.UserDetail;
@@ -29,16 +31,16 @@ public class UserController {
 
     @PostMapping("/create")
     @JsonView(Views.Public.class)
-    public ResponseEntity<UserDetail> createUser(@RequestBody UserDetail userDetail) throws UserCreationException {
+    public ResponseEntity<UserDetail> createUser(@RequestBody UserCreateRequest request) throws UserCreationException {
         logger.log(Level.INFO, "Inside controller create method.");
-        return ResponseEntity.ok(userService.createUser(userDetail));
+        return ResponseEntity.ok(userService.createUser(request));
     }
 
     @PostMapping("/update")
     @JsonView(Views.Public.class)
-    public ResponseEntity<UserDetail> updateUser(@RequestBody UserDetail userDetail) throws UserUpdateException {
+    public ResponseEntity<UserDetail> updateUser(@RequestBody UserUpdateRequest request) throws UserUpdateException {
         logger.log(Level.INFO, "Inside controller update method.");
-        return ResponseEntity.ok(userService.updateUserDetails(userDetail));
+        return ResponseEntity.ok(userService.updateUserDetails(request));
     }
 
 }

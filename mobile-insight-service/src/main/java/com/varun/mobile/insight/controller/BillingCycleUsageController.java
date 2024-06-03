@@ -2,6 +2,7 @@ package com.varun.mobile.insight.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
+import com.varun.mobile.insight.dto.BillingRequest;
 import com.varun.mobile.insight.exception.BillingHistoryException;
 import com.varun.mobile.insight.exception.CycleUsageException;
 import com.varun.mobile.insight.model.BillingCycle;
@@ -28,16 +29,16 @@ public class BillingCycleUsageController {
 
     @GetMapping("/history")
     @JsonView(Views.Public.class)
-    public ResponseEntity<List<BillingCycle>> getCycleHistory(@RequestParam String userId, @RequestParam String mdn) throws BillingHistoryException {
+    public ResponseEntity<List<BillingCycle>> getCycleHistory(@RequestBody BillingRequest request) throws BillingHistoryException {
         logger.log(Level.INFO, "Inside billing cycle controller history method.");
-        return ResponseEntity.ok(billingCycleUsageService.getBillingCycleHistory(userId, mdn));
+        return ResponseEntity.ok(billingCycleUsageService.getBillingCycleHistory(request.getUserId(), request.getMdn()));
     }
 
     @GetMapping("/daily-usage")
     @JsonView(Views.Public.class)
-    public ResponseEntity<List<DailyUsage>> getCurrentCycleDailyUsage(@RequestParam String mdn, @RequestParam String userId) throws CycleUsageException {
+    public ResponseEntity<List<DailyUsage>> getCurrentCycleDailyUsage(@RequestBody BillingRequest request) throws CycleUsageException {
         logger.log(Level.INFO, "Inside billing cycle controller daily usage method.");
-        return ResponseEntity.ok(billingCycleUsageService.getCurrentCycleUsage(userId, mdn));
+        return ResponseEntity.ok(billingCycleUsageService.getCurrentCycleUsage(request.getUserId(), request.getMdn()));
     }
 
 }

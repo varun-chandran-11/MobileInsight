@@ -38,6 +38,10 @@ public class BillingCycle {
         this.userId = userId;
     }
 
+    public BillingCycle() {
+        //empty constructor
+    }
+
     public String get_id() {
         return _id;
     }

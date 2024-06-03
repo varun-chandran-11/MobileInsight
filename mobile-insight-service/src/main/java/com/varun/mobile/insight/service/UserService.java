@@ -1,12 +1,14 @@
 package com.varun.mobile.insight.service;
 
+import com.varun.mobile.insight.dto.UserCreateRequest;
+import com.varun.mobile.insight.dto.UserUpdateRequest;
 import com.varun.mobile.insight.exception.UserCreationException;
 import com.varun.mobile.insight.exception.UserUpdateException;
 import com.varun.mobile.insight.model.UserDetail;
 
 public interface UserService {
 
-    UserDetail createUser(UserDetail userDetail) throws UserCreationException;
+    UserDetail createUser(UserCreateRequest request) throws UserCreationException;
 
-    UserDetail updateUserDetails(UserDetail userDetail) throws UserUpdateException;
+    UserDetail updateUserDetails(UserUpdateRequest request) throws UserUpdateException;
 }

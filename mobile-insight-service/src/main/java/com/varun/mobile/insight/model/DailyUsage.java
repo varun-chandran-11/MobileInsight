@@ -37,6 +37,10 @@ public class DailyUsage {
         this.usedInMb = usedInMb;
     }
 
+    public DailyUsage() {
+        //empty constructor
+    }
+
     public String get_id() {
         return _id;
     }
