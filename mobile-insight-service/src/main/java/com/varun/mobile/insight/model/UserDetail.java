@@ -31,9 +31,9 @@ public class UserDetail {
     private String password;
 
     public UserDetail(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        this.firstName = MIEncoder.getInstance().encode(firstName);
+        this.lastName = MIEncoder.getInstance().encode(lastName);
+        this.email = MIEncoder.getInstance().encode(email);
         this.password = MIEncoder.getInstance().encode(password);
     }
 

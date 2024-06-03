@@ -8,6 +8,7 @@ import com.varun.mobile.insight.model.DailyUsage;
 import com.varun.mobile.insight.repository.BillingCycleRepository;
 import com.varun.mobile.insight.repository.DailyUsageRepository;
 import com.varun.mobile.insight.service.BillingCycleUsageService;
+import com.varun.mobile.insight.util.MIEncoder;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class BillingCycleUsageServiceImpl implements BillingCycleUsageService {
     public List<BillingCycle> getBillingCycleHistory(String userId, String mdn) throws BillingHistoryException {
         logger.log(Level.INFO, "In service layer getBillingCycleHistory method.");
         try {
-            return billingCycleRepository.findAll(userId, mdn);
+            return billingCycleRepository.findAll(userId, MIEncoder.getInstance().encode(mdn));
         } catch (DataAccessException e) {
             // Handle Spring Data access exceptions
             e.printStackTrace();
@@ -56,7 +57,7 @@ public class BillingCycleUsageServiceImpl implements BillingCycleUsageService {
         logger.log(Level.INFO, "In service layer getCurrentCycleUsage method.");
         //get the billing cycle as per current date
         Date today = new Date();
-        BillingCycle billingCycle = getBillingCycle(userId, mdn, today);
+        BillingCycle billingCycle = getBillingCycle(userId, MIEncoder.getInstance().encode(mdn), today);
 
         //get the usage details with usedId and mdn between the billing cycle dates
         return getDailyUsage(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate());

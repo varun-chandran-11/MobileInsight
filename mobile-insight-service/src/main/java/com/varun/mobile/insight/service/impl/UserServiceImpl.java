@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     public UserDetail updateUserDetails(UserDetail userDetail) throws UserUpdateException {
         logger.log(Level.INFO, "In service layer updateUser method.");
         UserDetail user = findUserById(userDetail.get_id());
-        return saveUserDetails(user);
+        return saveUserDetails(userDetail.getFirstName(), userDetail.getLastName(), userDetail.getEmail(), user);
     }
 
     /**
@@ -71,19 +71,21 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
      * This method is used to save the details to the collection
      *
-     * @param userDetail
-     * @return - update user details.
+     * @param firstName - new firstName
+     * @param lastName - new lastName
+     * @param email - new email
+     * @param user - object to update
+     * @return
      * @throws UserUpdateException
      */
-    private UserDetail saveUserDetails(UserDetail userDetail) throws UserUpdateException {
+    private UserDetail saveUserDetails(String firstName, String lastName, String email, UserDetail userDetail) throws UserUpdateException {
         try {
             logger.log(Level.INFO, "Updating user details. Calling repository save method.");
-            userDetail.setFirstName(userDetail.getFirstName());
-            userDetail.setLastName(userDetail.getLastName());
-            userDetail.setEmail(userDetail.getEmail());
+            userDetail.setFirstName(firstName);
+            userDetail.setLastName(lastName);
+            userDetail.setEmail(email);
             return userDetailRepository.save(userDetail);
         } catch (DuplicateKeyException e) {
             e.printStackTrace();
