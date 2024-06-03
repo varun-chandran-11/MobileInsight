@@ -58,7 +58,7 @@ public class BillCycleUsageServiceImplTest {
         List<DailyUsage> dailyUsages = Arrays.asList(new DailyUsage(), new DailyUsage());
 
         when(billingCycleRepository.findItemByUserIdAndMdnAndDate(anyString(), anyString(), any(Date.class))).thenReturn(Optional.of(billingCycle));
-        when(dailyUsageRepository.findUsageByUserIdMdnAndDateRange(anyString(), anyString(), any(Date.class), any(Date.class))).thenReturn(dailyUsages);
+        when(dailyUsageRepository.findItemByUserIdAndMdnAndUsageDateBetween(anyString(), anyString(), any(Date.class), any(Date.class))).thenReturn(dailyUsages);
 
         List<DailyUsage> result = billingCycleUsageService.getCurrentCycleUsage("66595f7f832f0e6c0e31d75c", "4379892179");
 
