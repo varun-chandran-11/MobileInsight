@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DailyUsageRepositoryTest {
 
     private final String userId = "66595f7f832f0e6c0e31d75c";
-    private final String mdn = "4379892179";
+    private final String mdn = "1234567891";
     @Autowired
     private DailyUsageRepository dailyUsageRepository;
 

@@ -39,12 +39,12 @@ public class UserControllerTest {
         UserCreateRequest request = new UserCreateRequest();
         request.setFirstName("Varun");
         request.setLastName("Chandy");
-        request.setEmail("varun.chandy@gmail.com");
+        request.setEmail("john.doe@example.com");
 
         UserDetail userDetail = new UserDetail();
         userDetail.setFirstName("Varun");
         userDetail.setLastName("Chandy");
-        userDetail.setEmail("varun.chandy@gmail.com");
+        userDetail.setEmail("john.doe1@example.com");
         userDetail.set_id("665d482d8565ff1723ad3d8b");
         userDetail.setPassword("Test@123");
 
@@ -61,13 +61,13 @@ public class UserControllerTest {
         UserUpdateRequest request = new UserUpdateRequest();
         request.setFirstName("Varun");
         request.setLastName("Chan");
-        request.setEmail("varun.chan@gmail.com");
+        request.setEmail("varun.chan@dispostable.com");
         request.setUserId("665d482d8565ff1723ad3d8b");
 
         UserDetail userDetail = new UserDetail();
         userDetail.setFirstName("Varun");
         userDetail.setLastName("Chandy");
-        userDetail.setEmail("varun.chandy@gmail.com");
+        userDetail.setEmail("varun.chandy@dispostable.com");
         userDetail.set_id("665d482d8565ff1723ad3d8b");
         userDetail.setPassword("Test@123");
 
