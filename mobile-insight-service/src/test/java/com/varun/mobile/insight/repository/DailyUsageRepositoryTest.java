@@ -20,8 +20,6 @@ public class DailyUsageRepositoryTest {
     @Autowired
     private DailyUsageRepository dailyUsageRepository;
 
-    private DailyUsage usage1;
-    private DailyUsage usage2;
     private final String userId = "66595f7f832f0e6c0e31d75c";
     private final String mdn = "4379892179";
 
@@ -29,14 +27,14 @@ public class DailyUsageRepositoryTest {
     public void setUp() {
        // dailyUsageRepository.deleteAll();
 
-        usage1 = new DailyUsage();
+        DailyUsage usage1 = new DailyUsage();
         usage1.setUserId(userId);
         usage1.setMdn(mdn);
         usage1.setUsedInMb(560.98);
         usage1.setUsageDate(new Date(1622505600000L)); // 1st June 2021
         //dailyUsageRepository.save(usage1);
 
-        usage2 = new DailyUsage();
+        DailyUsage usage2 = new DailyUsage();
         usage2.setUserId(userId);
         usage2.setMdn(mdn);
         usage2.setUsedInMb(1023.87);
