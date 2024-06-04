@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class BillCycleUsageControllerTest {
 
     private final String userId = "66595f7f832f0e6c0e31d75c";
-    private final String mdn = "4379892179";
+    private final String mdn = "1234567891";
     @Mock
     private BillCycleUsageService billCycleUsageService;
     @InjectMocks

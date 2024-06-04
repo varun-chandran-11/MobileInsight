@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BillingCycleRepositoryTest {
 
     private final String userId = "66595f7f832f0e6c0e31d75c";
-    private final String mdn = "4379892179";
+    private final String mdn = "1234567891";
     @Autowired
     private BillingCycleRepository billingCycleRepository;
 
@@ -75,7 +75,7 @@ public class BillingCycleRepositoryTest {
         assertEquals(3, result.getTotalElements());
         assertEquals(3, result.getContent().size());
 
-        resultList.stream().forEach(entry -> {
+        resultList.forEach(entry -> {
             assertNull(entry.getUserId());
             assertNotNull(entry.getEndDate());
             assertNotNull(entry.getStartDate());
