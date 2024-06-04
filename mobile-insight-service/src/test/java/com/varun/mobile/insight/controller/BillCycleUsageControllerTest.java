@@ -20,14 +20,12 @@ import static org.mockito.Mockito.*;
 
 public class BillCycleUsageControllerTest {
 
-    @Mock
-    private BillCycleUsageService billCycleUsageService;
-
-    @InjectMocks
-    private BillCycleUsageController billCycleUsageController;
-
     private final String userId = "66595f7f832f0e6c0e31d75c";
     private final String mdn = "4379892179";
+    @Mock
+    private BillCycleUsageService billCycleUsageService;
+    @InjectMocks
+    private BillCycleUsageController billCycleUsageController;
 
     @BeforeEach
     public void setUp() {

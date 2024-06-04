@@ -18,11 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataMongoTest
 public class BillingCycleRepositoryTest {
 
-    @Autowired
-    private BillingCycleRepository billingCycleRepository;
-
     private final String userId = "66595f7f832f0e6c0e31d75c";
     private final String mdn = "4379892179";
+    @Autowired
+    private BillingCycleRepository billingCycleRepository;
 
     @BeforeEach
     public void setUp() {

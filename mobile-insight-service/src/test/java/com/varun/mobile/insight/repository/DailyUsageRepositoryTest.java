@@ -17,15 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataMongoTest
 public class DailyUsageRepositoryTest {
 
+    private final String userId = "66595f7f832f0e6c0e31d75c";
+    private final String mdn = "4379892179";
     @Autowired
     private DailyUsageRepository dailyUsageRepository;
 
-    private final String userId = "66595f7f832f0e6c0e31d75c";
-    private final String mdn = "4379892179";
-
     @BeforeEach
     public void setUp() {
-       // dailyUsageRepository.deleteAll();
+        // dailyUsageRepository.deleteAll();
 
         DailyUsage usage1 = new DailyUsage();
         usage1.setUserId(userId);

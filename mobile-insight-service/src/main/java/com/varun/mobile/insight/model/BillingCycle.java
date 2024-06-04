@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.varun.mobile.insight.common.Views;
 import com.varun.mobile.insight.util.MIEncoder;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.Date;
 
@@ -55,7 +54,8 @@ public class BillingCycle {
     }
 
     public void setMdn(String mdn) {
-        this.mdn = MIEncoder.getInstance().encode(mdn);;
+        this.mdn = MIEncoder.getInstance().encode(mdn);
+        ;
     }
 
     public Date getStartDate() {

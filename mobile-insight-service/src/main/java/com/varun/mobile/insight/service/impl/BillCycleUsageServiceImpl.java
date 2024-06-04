@@ -10,7 +10,6 @@ import com.varun.mobile.insight.repository.DailyUsageRepository;
 import com.varun.mobile.insight.service.BillCycleUsageService;
 import com.varun.mobile.insight.util.MIEncoder;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -68,10 +67,9 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
     }
 
     /**
-     *
      * @param userId - primary key of user detail table
-     * @param mdn - phone number
-     * @param date - date to filter
+     * @param mdn    - phone number
+     * @param date   - date to filter
      * @return - Billing cycle as per the given arguments
      * @throws CycleUsageException
      */
@@ -80,7 +78,7 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
         try {
             logger.log(Level.INFO, "Calling repo to get current cycle.");
             Optional<BillingCycle> currentCycle = billingCycleRepository.findItemByUserIdAndMdnAndDate(userId, MIEncoder.getInstance().encode(mdn), date);
-            if(currentCycle.isEmpty()) {
+            if (currentCycle.isEmpty()) {
                 throw new CycleUsageException("No current cycle found for user " + userId + " and mdn " + mdn);
             }
             logger.log(Level.INFO, "Successfully retrieved current cycle.");
@@ -102,10 +100,11 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
 
     /**
      * This method calls the repo and get the details.
-     * @param userId - primary key of user table
-     * @param mdn - phone number
+     *
+     * @param userId    - primary key of user table
+     * @param mdn       - phone number
      * @param startDate - start date of cycle
-     * @param endDate - end date of cycle
+     * @param endDate   - end date of cycle
      * @return - daily usage list
      * @throws CycleUsageException
      */

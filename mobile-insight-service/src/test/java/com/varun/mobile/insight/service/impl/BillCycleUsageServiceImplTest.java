@@ -3,7 +3,6 @@ package com.varun.mobile.insight.service.impl;
 import com.varun.mobile.insight.exception.BillingHistoryException;
 import com.varun.mobile.insight.exception.CycleUsageException;
 import com.varun.mobile.insight.model.BillingCycle;
-import com.varun.mobile.insight.model.DailyUsage;
 import com.varun.mobile.insight.repository.BillingCycleRepository;
 import com.varun.mobile.insight.repository.DailyUsageRepository;
 import com.varun.mobile.insight.util.MIEncoder;
@@ -17,7 +16,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,19 +28,16 @@ import static org.mockito.Mockito.when;
 
 public class BillCycleUsageServiceImplTest {
 
-    @Mock
-    private BillingCycleRepository billingCycleRepository;
-
-    @Mock
-    private DailyUsageRepository dailyUsageRepository;
-
-    @InjectMocks
-    private BillCycleUsageServiceImpl billingCycleUsageService;
-
     private final String userId = "66595f7f832f0e6c0e31d75c";
     private final String mdn = "4379892179";
     private final int page = 0;
     private final int size = 5;
+    @Mock
+    private BillingCycleRepository billingCycleRepository;
+    @Mock
+    private DailyUsageRepository dailyUsageRepository;
+    @InjectMocks
+    private BillCycleUsageServiceImpl billingCycleUsageService;
 
     @BeforeEach
     public void setUp() {
@@ -77,7 +76,8 @@ public class BillCycleUsageServiceImplTest {
 
 
         when(billingCycleRepository.findAll(userId, MIEncoder.getInstance().encode(mdn), PageRequest.of(page, size)))
-                .thenThrow(new DataAccessException("...") {});
+                .thenThrow(new DataAccessException("...") {
+                });
 
         assertThrows(BillingHistoryException.class, () -> {
             billingCycleUsageService.getBillingCycleHistory(userId, mdn, page, size);

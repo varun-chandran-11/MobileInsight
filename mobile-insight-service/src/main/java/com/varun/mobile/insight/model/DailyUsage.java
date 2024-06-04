@@ -31,7 +31,8 @@ public class DailyUsage {
     private Double usedInMb;
 
     public DailyUsage(String mdn, String userId, Date usageDate, Double usedInMb) {
-        this.mdn = MIEncoder.getInstance().encode(mdn);;
+        this.mdn = MIEncoder.getInstance().encode(mdn);
+        ;
         this.userId = userId;
         this.usageDate = usageDate;
         this.usedInMb = usedInMb;
@@ -54,7 +55,8 @@ public class DailyUsage {
     }
 
     public void setMdn(String mdn) {
-        this.mdn = MIEncoder.getInstance().encode(mdn);;
+        this.mdn = MIEncoder.getInstance().encode(mdn);
+        ;
     }
 
     public String getUserId() {
