@@ -10,6 +10,9 @@ import com.varun.mobile.insight.repository.DailyUsageRepository;
 import com.varun.mobile.insight.service.BillCycleUsageService;
 import com.varun.mobile.insight.util.MIEncoder;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -33,10 +36,11 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
     }
 
     @Override
-    public List<BillingCycle> getBillingCycleHistory(String userId, String mdn) throws BillingHistoryException {
+    public List<BillingCycle> getBillingCycleHistory(String userId, String mdn, int page, int size) throws BillingHistoryException {
         logger.log(Level.INFO, "In service layer getBillingCycleHistory method.");
         try {
-            return billingCycleRepository.findAll(userId, MIEncoder.getInstance().encode(mdn));
+            Pageable pageable = PageRequest.of(page, size);
+            return billingCycleRepository.findAll(userId, MIEncoder.getInstance().encode(mdn), pageable).getContent();
         } catch (DataAccessException e) {
             // Handle Spring Data access exceptions
             e.printStackTrace();
@@ -53,15 +57,14 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
     }
 
     @Override
-    public List<DailyUsage> getCurrentCycleUsage(String userId, String mdn) throws CycleUsageException {
+    public List<DailyUsage> getCurrentCycleUsage(String userId, String mdn, int page, int size) throws CycleUsageException {
         logger.log(Level.INFO, "In service layer getCurrentCycleUsage method.");
         //get the billing cycle as per current date
         Date today = new Date();
         BillingCycle billingCycle = getBillingCycle(userId, mdn, today);
 
         //get the usage details with usedId and mdn between the billing cycle dates
-        List<DailyUsage> dailyUsageList = getDailyUsage(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate());
-        return dailyUsageList;
+        return getDailyUsage(userId, mdn, billingCycle.getStartDate(), billingCycle.getEndDate(), page, size);
     }
 
     /**
@@ -106,11 +109,12 @@ public class BillCycleUsageServiceImpl implements BillCycleUsageService {
      * @return - daily usage list
      * @throws CycleUsageException
      */
-    private List<DailyUsage> getDailyUsage(String userId, String mdn, Date startDate, Date endDate) throws CycleUsageException {
+    private List<DailyUsage> getDailyUsage(String userId, String mdn, Date startDate, Date endDate, int page, int size) throws CycleUsageException {
         logger.log(Level.INFO, "Inside getDailyUsage method of service layer.");
         try {
             logger.log(Level.INFO, "Calling repo to get usage details.");
-            return dailyUsageRepository.findItemByUserIdAndMdnAndUsageDateBetween(userId, MIEncoder.getInstance().encode(mdn), startDate, endDate);
+            Pageable pageable = PageRequest.of(page, size);
+            return dailyUsageRepository.findItemByUserIdAndMdnAndUsageDateBetween(userId, MIEncoder.getInstance().encode(mdn), startDate, endDate, pageable).getContent();
         } catch (DataAccessException e) {
             // Handle Spring Data access exceptions
             e.printStackTrace();
