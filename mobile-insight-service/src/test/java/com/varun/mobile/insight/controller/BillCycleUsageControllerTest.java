@@ -9,32 +9,25 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class BillCycleUsageControllerTest {
-
-    private MockMvc mockMvc;
 
     @Mock
     private BillCycleUsageService billCycleUsageService;
 
     @InjectMocks
     private BillCycleUsageController billCycleUsageController;
+
+    private final String userId = "66595f7f832f0e6c0e31d75c";
+    private final String mdn = "4379892179";
 
     @BeforeEach
     public void setUp() {
@@ -44,8 +37,8 @@ public class BillCycleUsageControllerTest {
     @Test
     public void testGetCycleHistory() throws Exception {
         BillingRequest request = new BillingRequest();
-        request.setUserId("66595f7f832f0e6c0e31d75c");
-        request.setMdn("4379892179");
+        request.setUserId(userId);
+        request.setMdn(mdn);
         int page = 0;
         int size = 5;
 
@@ -63,20 +56,20 @@ public class BillCycleUsageControllerTest {
     @Test
     public void testGetCurrentCycleDailyUsage() throws Exception {
         BillingRequest request = new BillingRequest();
-        request.setUserId("66595f7f832f0e6c0e31d75c");
-        request.setMdn("4379892179");
+        request.setUserId(userId);
+        request.setMdn(mdn);
         int page = 0;
         int size = 5;
 
         DailyUsage usage1 = new DailyUsage();
         usage1.setUsageDate(new Date());
-        usage1.setUserId("66595f7f832f0e6c0e31d75c");
-        usage1.setMdn("4379892179");
+        usage1.setUserId(userId);
+        usage1.setMdn(mdn);
         usage1.setUsedInMb(500.43);
         DailyUsage usage2 = new DailyUsage();
         usage2.setUsageDate(new Date());
-        usage2.setUserId("66595f7f832f0e6c0e31d75c");
-        usage2.setMdn("4379892179");
+        usage2.setUserId(userId);
+        usage2.setMdn(mdn);
         usage2.setUsedInMb(550.43);
         List<DailyUsage> dailyUsages = Arrays.asList(usage1, usage2);
 
