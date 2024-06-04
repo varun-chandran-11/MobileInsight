@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
      * This method is used to retrieve the user from collection using userId
      *
      * @param userId - id of user details table
@@ -75,9 +74,9 @@ public class UserServiceImpl implements UserService {
     /**
      * This method is used to save the details to the collection
      *
-     * @param firstName - new firstName
-     * @param lastName - new lastName
-     * @param email - new email
+     * @param firstName  - new firstName
+     * @param lastName   - new lastName
+     * @param email      - new email
      * @param userDetail - object to update
      * @return
      * @throws UserUpdateException

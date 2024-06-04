@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface BillCycleUsageService {
 
-    List<BillingCycle> getBillingCycleHistory(String userId, String mdn) throws BillingHistoryException;
+    List<BillingCycle> getBillingCycleHistory(String userId, String mdn, int page, int size) throws BillingHistoryException;
 
-    List<DailyUsage> getCurrentCycleUsage(String userId, String mdn) throws CycleUsageException;
+    List<DailyUsage> getCurrentCycleUsage(String userId, String mdn, int page, int size) throws CycleUsageException;
 
 }

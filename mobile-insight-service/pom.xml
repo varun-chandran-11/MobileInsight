@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <config-client-version>4.1.0</config-client-version>
         <flapdoodle-version>4.12.6</flapdoodle-version>
+        <openapi-version>2.5.0</openapi-version>
     </properties>
     <dependencies>
         <dependency>
@@ -37,6 +38,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-client</artifactId>
             <version>${config-client-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${openapi-version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.Date;
 import java.util.List;
@@ -16,39 +18,67 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataMongoTest
 public class BillingCycleRepositoryTest {
 
+    private final String userId = "66595f7f832f0e6c0e31d75c";
+    private final String mdn = "4379892179";
     @Autowired
     private BillingCycleRepository billingCycleRepository;
-
-    private BillingCycle billingCycle1;
 
     @BeforeEach
     public void setUp() {
 
-        billingCycle1 = new BillingCycle();
-        billingCycle1.setUserId("66595f7f832f0e6c0e31d75c");
-        billingCycle1.setMdn("4379892179");
-        billingCycle1.setStartDate(new Date(System.currentTimeMillis() - 100000000L)); // 10 days ago
-        billingCycle1.setEndDate(new Date(System.currentTimeMillis() + 100000000L)); // 10 days in the future
-        /*
-        mongoTemplate.save(billingCycle1);
-        */
+        //billingCycleRepository.deleteAll();
     }
 
     @Test
     public void testFindItemByUserIdAndMdnAndDate() {
+
         Date currentDate = new Date();
-        Optional<BillingCycle> result = billingCycleRepository.findItemByUserIdAndMdnAndDate("66595f7f832f0e6c0e31d75c", MIEncoder.encoder.encode("4379892179"), currentDate);
+
+        /*BillingCycle billingCycle = new BillingCycle();
+        billingCycle.setUserId(userId);
+        billingCycle.setMdn(mdn);
+        billingCycle.setStartDate(new Date(currentDate.getTime() - 1000000));
+        billingCycle.setEndDate(new Date(currentDate.getTime() + 1000000));
+
+        billingCycleRepository.save(billingCycle);*/
+
+        Optional<BillingCycle> result = billingCycleRepository.findItemByUserIdAndMdnAndDate(userId, MIEncoder.getInstance().encode(mdn), currentDate);
 
         assertTrue(result.isPresent());
-        assertEquals(billingCycle1.getUserId(), result.get().getUserId());
-        assertEquals(billingCycle1.getMdn(), result.get().getMdn());
+        assertEquals(userId, result.get().getUserId());
+        assertEquals(mdn, result.get().getMdn());
     }
 
     @Test
     public void testFindAll() {
-        List<BillingCycle> result = billingCycleRepository.findAll("66595f7f832f0e6c0e31d75c", MIEncoder.encoder.encode("4379892179"));
+        /*
+        BillingCycle billingCycle1 = new BillingCycle();
+        billingCycle1.setUserId(userId);
+        billingCycle1.setMdn(mdn);
+        billingCycle1.setStartDate(new Date(System.currentTimeMillis() - 2000000));
+        billingCycle1.setEndDate(new Date(System.currentTimeMillis() - 1000000));
 
-        assertNotNull(result);
-        assertEquals(3, result.size());
+        BillingCycle billingCycle2 = new BillingCycle();
+        billingCycle2.setUserId(userId);
+        billingCycle2.setMdn(mdn);
+        billingCycle2.setStartDate(new Date(System.currentTimeMillis() - 1000000));
+        billingCycle2.setEndDate(new Date(System.currentTimeMillis() + 1000000));
+
+        billingCycleRepository.save(billingCycle1);
+        billingCycleRepository.save(billingCycle2); */
+
+        PageRequest pageRequest = PageRequest.of(0, 5);
+
+        Page<BillingCycle> result = billingCycleRepository.findAll(userId, MIEncoder.getInstance().encode(mdn), pageRequest);
+        List<BillingCycle> resultList = result.getContent();
+
+        assertEquals(3, result.getTotalElements());
+        assertEquals(3, result.getContent().size());
+
+        resultList.stream().forEach(entry -> {
+            assertNull(entry.getUserId());
+            assertNotNull(entry.getEndDate());
+            assertNotNull(entry.getStartDate());
+        });
     }
 }
