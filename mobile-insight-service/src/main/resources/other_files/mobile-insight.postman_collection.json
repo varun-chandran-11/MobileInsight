@@ -1,202 +1,202 @@
 {
-  "info": {
-    "_postman_id": "0d254d13-95a8-4a91-83ae-d25f646e0ceb",
-    "name": "mobile-insight",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "17865152"
-  },
-  "item": [
-    {
-      "name": "Create User",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"firstName\" : \"Devansh\",\n    \"lastName\" : \"Nair\",\n    \"email\" : \"devansh.nair9@gmail.com\",\n    \"password\": \"Test@123\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/user/create",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "user",
-            "create"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Update User",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"userId\": \"665d482d8565ff1723ad3d8b\",\n    \"firstName\": \"Varun\",\n    \"lastName\": \"Changi\",\n    \"email\": \"varun.changi@gmail.com\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/user/update",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "user",
-            "update"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Save Billing Cycle (Added for testing purpose)",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"mdn\": \"4379892179\",\n    \"userId\": \"66595f7f832f0e6c0e31d75c\",\n    \"startDate\": \"2024-04-01\",\n    \"endDate\": \"2024-04-30\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/billing-cycle/save-billing-cycle",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "billing-cycle",
-            "save-billing-cycle"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Save Daily Usage (Added for testing purpose)",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"mdn\": \"4379892179\",\n    \"userId\": \"66595f7f832f0e6c0e31d75c\",\n    \"usageDate\": \"2024-05-01T00:00:00.000-0400\",\n    \"usedInMb\": 1024\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/billing-cylce/save-billing-cycle",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "billing-cylce",
-            "save-billing-cycle"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Billing Cycle History",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/billing-cycle/history?page=0&size=10&mdn=4379892179&userId=66595f7f832f0e6c0e31d75c",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "billing-cycle",
-            "history"
-          ],
-          "query": [
-            {
-              "key": "page",
-              "value": "0"
-            },
-            {
-              "key": "size",
-              "value": "10"
-            },
-            {
-              "key": "mdn",
-              "value": "4379892179"
-            },
-            {
-              "key": "userId",
-              "value": "66595f7f832f0e6c0e31d75c"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Daily Usage",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/billing-cycle/daily-usage?page=0&size=10&mdn=4379892179&userId=66595f7f832f0e6c0e31d75c",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "billing-cycle",
-            "daily-usage"
-          ],
-          "query": [
-            {
-              "key": "page",
-              "value": "0"
-            },
-            {
-              "key": "size",
-              "value": "10"
-            },
-            {
-              "key": "mdn",
-              "value": "4379892179"
-            },
-            {
-              "key": "userId",
-              "value": "66595f7f832f0e6c0e31d75c"
-            }
-          ]
-        }
-      },
-      "response": []
-    }
-  ]
+	"info": {
+		"_postman_id": "0d254d13-95a8-4a91-83ae-d25f646e0ceb",
+		"name": "mobile-insight",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17865152"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\" : \"Devansh\",\n    \"lastName\" : \"Nair\",\n    \"email\" : \"devansh@dispostable.com\",\n    \"password\": \"Test@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"665d482d8565ff1723ad3d8b\",\n    \"firstName\": \"Varun\",\n    \"lastName\": \"Changi\",\n    \"email\": \"varun@dispostable.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Billing Cycle (Added for testing purpose)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mdn\": \"1234567891\",\n    \"userId\": \"66595f7f832f0e6c0e31d75c\",\n    \"startDate\": \"2024-04-01\",\n    \"endDate\": \"2024-04-30\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/billing-cycle/save-billing-cycle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"billing-cycle",
+						"save-billing-cycle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Daily Usage (Added for testing purpose)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mdn\": \"4379892179\",\n    \"userId\": \"66595f7f832f0e6c0e31d75c\",\n    \"usageDate\": \"2024-05-01T00:00:00.000-0400\",\n    \"usedInMb\": 1024\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/billing-cylce/save-billing-cycle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"billing-cylce",
+						"save-billing-cycle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Billing Cycle History",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/billing-cycle/history?page=0&size=10&mdn=1234567891&userId=66595f7f832f0e6c0e31d75c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"billing-cycle",
+						"history"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "mdn",
+							"value": "1234567891"
+						},
+						{
+							"key": "userId",
+							"value": "66595f7f832f0e6c0e31d75c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Daily Usage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/billing-cycle/daily-usage?page=0&size=10&mdn=1234567891&userId=66595f7f832f0e6c0e31d75c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"billing-cycle",
+						"daily-usage"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "mdn",
+							"value": "1234567891"
+						},
+						{
+							"key": "userId",
+							"value": "66595f7f832f0e6c0e31d75c"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
