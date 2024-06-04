@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstName\" : \"Varun\",\n    \"lastName\" : \"Chan\",\n    \"email\" : \"varun.chan@gmail.com\",\n    \"password\": \"Test@123\"\n}",
+					"raw": "{\n    \"firstName\" : \"Devansh\",\n    \"lastName\" : \"Nair\",\n    \"email\" : \"devansh.nair9@gmail.com\",\n    \"password\": \"Test@123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -124,23 +124,11 @@
 		},
 		{
 			"name": "Billing Cycle History",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"mdn\" : \"4379892179\",\n    \"userId\" : \"66595f7f832f0e6c0e31d75c\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8080/billing-cycle/history",
+					"raw": "http://localhost:8080/billing-cycle/history?page=0&size=10&mdn=4379892179&userId=66595f7f832f0e6c0e31d75c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -149,30 +137,36 @@
 					"path": [
 						"billing-cycle",
 						"history"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "mdn",
+							"value": "4379892179"
+						},
+						{
+							"key": "userId",
+							"value": "66595f7f832f0e6c0e31d75c"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Billing Cycle History Copy",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Daily Usage",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"mdn\" : \"4379892179\",\n    \"userId\" : \"66595fedc0712d425b3ac2f6\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8080/billing-cycle/daily-usage",
+					"raw": "http://localhost:8080/billing-cycle/daily-usage?page=0&size=10&mdn=4379892179&userId=66595f7f832f0e6c0e31d75c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -181,6 +175,24 @@
 					"path": [
 						"billing-cycle",
 						"daily-usage"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "mdn",
+							"value": "4379892179"
+						},
+						{
+							"key": "userId",
+							"value": "66595f7f832f0e6c0e31d75c"
+						}
 					]
 				}
 			},
